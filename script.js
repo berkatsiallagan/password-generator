@@ -164,18 +164,31 @@ function clearHistory() {
 }
 
 // 🔹 UNLOCK HISTORY 🔹
-function unlockHistory() {
+async function unlockHistory() {
     if (!window.PublicKeyCredential) {
         Swal.fire("Error", "Browser tidak mendukung autentikasi biometrik", "error");
         return;
     }
 
-    navigator.credentials.get({ publicKey: { challenge: new Uint8Array(32), timeout: 60000 } })
-        .then(() => {
+    try {
+        const credential = await navigator.credentials.get({
+            publicKey: {
+                challenge: new Uint8Array(32),
+                timeout: 60000,
+                userVerification: "required", // Pastikan user harus verifikasi biometrik
+                authenticatorAttachment: "platform" // Pakai biometrik perangkat (fingerprint/Face ID)
+            }
+        });
+
+        if (credential) {
             Swal.fire("Sukses!", "Riwayat password ditampilkan!", "success");
             showHistory();
-        })
-        .catch(() => Swal.fire("Gagal!", "Autentikasi biometrik gagal!", "error"));
+        } else {
+            throw new Error("Autentikasi gagal!");
+        }
+    } catch (error) {
+        Swal.fire("Gagal!", "Autentikasi biometrik gagal!", "error");
+    }
 }
 
 // 🔹 TOGGLE DARK MODE 🔹
