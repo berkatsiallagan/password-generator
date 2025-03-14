@@ -1,0 +1,49 @@
+html, body {
+    height: 100%;
+}
+
+footer {
+    margin-top: auto;
+}
+
+body {
+    background-color: #f8f9fa;
+    transition: background-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    max-width: 500px;
+    margin: auto;
+}
+
+input[type="text"] {
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.dark-mode {
+    background-color: #121212 !important;
+    color: white !important;
+}
+
+.dark-mode .card {
+    background-color: #1e1e1e !important;
+    color: white !important;
+}
+
+.list-group-item {
+    font-family: monospace;
+}
+
+.fa-key {
+    color: black;
+    font-size: 24px;
+}
+
+.dark-mode .fa-key {
+    color: white;
+    font-size: 24px;
+}
